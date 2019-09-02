@@ -1,15 +1,15 @@
-$(document).ready(function(){
+jQuery(document).ready(function(){
 	var url="http://ceqweb1.ceqnep.com.br/producao/farmaapp/ajax/auth.php";
     
     //Login Function
-    $("#login").click(function(){
+    jQuery("#login").click(function(){
     	
-    	var login=$("#sellogin").val();
-    	var pass=$("#senha").val();
+    	var login=jQuery("#sellogin").val();
+    	var pass=jQuery("#senha").val();
     	var dataString="login="+login+"&senha="+pass;
     	if($.trim(login).length>0 & $.trim(pass).length>0)
 		{
-			$.ajax({
+			jQuery.ajax({
 				type: "POST",
 				url: url,
 				data: dataString,
@@ -17,7 +17,7 @@ $(document).ready(function(){
 				crossDomain: true,
 				cache: false,
 				beforeSend: function(){ 
-					$("#login").html('Connecting...');
+					jQuery("#login").html('Connecting...');
 				},
 				success: function(data){
 					if(data.cod_usua != "")
@@ -30,7 +30,7 @@ $(document).ready(function(){
 					else
 					{
 						alert("Login error");
-						$("#login").html('Login');
+						jQuery("#login").html('Login');
 					}
 				}
 			});
@@ -39,11 +39,11 @@ $(document).ready(function(){
     });
 
     //logout function
-    $("#logout").click(function(){
+    jQuery("#logout").click(function(){
     	localStorage.login="false";
     	window.location.href = "login.html";
     });
 
     //Displaying user email on home page
-    $("#farma").html(localStorage.farma);
+    jQuery("#farma").html(localStorage.farma);
 });

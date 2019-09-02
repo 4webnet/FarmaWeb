@@ -5,9 +5,8 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 	<link rel="stylesheet" type="text/css" href="css/fontes_ceqnep.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css">
 	<link rel="stylesheet" type="text/css" href="css/ionic.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/ionicons.min.css" />
@@ -36,7 +35,6 @@
 		</label>
 		<div>
 			<input type="password" name="senha" id="senha" style='text-transform:lowercase; font-size: 1.4em !important'/>
-			<div id="capslockstate" style="display:none; color: red;">Teclado MAIÚSCULO</div>
 		</div>
         <label class="item-input">
             <button class="button button-block button-positive" id="login">Entrar</button>
@@ -49,14 +47,13 @@
 </body>
 </html>
 <script type="text/javascript">
-$(document).ready(function(){ 
-	var url="http://ceqweb1.ceqnep.com.br/producao/farmaapp/ajax/buscaFarma.php";
-	$.getJSON(url,function(result){
-		$.each(result, function(i, field){
-			var nome=field.pess_nome;
-			var login=field.usua_login;
-			$("#sellogin").append(new Option(nome, login));
-		});
+var url="http://ceqweb1.ceqnep.com.br/producao/farmaapp/ajax/buscaFarma.php";
+jQuery.getJSON(url,function(result){
+	jQuery.each(result, function(i, field){
+		var nome=field.pess_nome;
+		var login=field.usua_login;
+		alert(nome);
+		jQuery("#sellogin").append(new Option(nome, login));
 	});
 });
 </script>
