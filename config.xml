@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.phonegap.farmaweb" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>FarmaWeb</name>
+	<description>
+		Farmacêuticos da CEQNEP
+	</description>
+	<author href="https://www.4web.net.br" email="douglas@4web.net.br">
+		Douglas
+	</author>
+	<preference name="orientation" value="portrait" />
+	<preference name="fullscreen" value="true" />
+	<preference name="permissions" value="none" />
+	<preference name="android-minSdkVersion" value="16" />
+	<platform name="android" />
+	<icon src="logoweb.png" />
+	<splash src="logoweb.png" />
+    <content src="index.html" />
+    <access origin="*" />
+</widget>
