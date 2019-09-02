@@ -47,13 +47,26 @@
 </body>
 </html>
 <script type="text/javascript">
-var url="http://ceqweb1.ceqnep.com.br/producao/farmaapp/ajax/buscaFarma.php";
-jQuery.getJSON(url,function(result){
-	jQuery.each(result, function(i, field){
-		var nome=field.pess_nome;
-		var login=field.usua_login;
-		alert(nome);
-		jQuery("#sellogin").append(new Option(nome, login));
+function carregafarma(){
+	var url="http://ceqweb1.ceqnep.com.br/producao/farmaapp/ajax/buscaFarma.php";
+	// url = "ajax/buscaOcorrencias.php";
+	jQuery.ajax({
+		type: 'post',
+		async: true,
+		url:url,
+		dataType: 'json',
+		success: function(retorno){
+			for(x = 0; x < retorno.length; x++){
+				var nome=retorno[x].pess_nome;
+				var login=retorno[x].usua_login;
+				alert(nome);
+				jQuery("#sellogin").append(new Option(nome, login));
+			}
+		},
+		error: function (request, status, error) {
+			alert(request.responseText);
+		}
 	});
-});
+}
+carregafarma();
 </script>
