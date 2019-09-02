@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+		<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+		<link rel="stylesheet" type="text/css" href="css/fontes_ceqnep.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css">
+		<link rel="stylesheet" type="text/css" href="css/ionic.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/ionicons.min.css" />
+        <title>FarmaWeb</title>
+		<script type="text/javascript">
+		var url = window.location.pathname;
+		var filename = url.substring(url.lastIndexOf('/') + 1);
+		if (localStorage.login == "true" && filename == 'login.html') {
+			window.location.href = "index.html";
+		} else if (localStorage.login == null) {
+			window.location.href = "login.html";
+		} else if (localStorage.login == "false" && filename != 'login.html') {
+			window.location.href = "login.html";
+		}
+		</script>
+		<style>
+			#numocorrencias{
+				background-color: red;
+				color: white;
+			}
+			#numhospitais{
+				background-color: yellow;
+			}
+		</style>		
+    </head>
+    <body>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/jquery-2.1.3.js"></script>
+		<script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript">
+			app.initialize();
+		</script>
+		<!--<script type="text/javascript" src="js/bootstrap.js" charset="UTF-8">
+		Accordion wrapper-->
+		<div data-role="header"  data-position="fixed" data-theme="b" data-content-theme="b" >  
+			<h1> FarmaWeb - <span id='nomefarma'></span> </h1>
+			<a data-icon="power" data-theme="b" class="ui-btn-right" onclick="sair()">Sair</a>
+		</div>  
+		
+		<div data-role="collapsible-set" data-content-theme="a" >
+			<div data-role="collapsible" data-theme="b" data-content-theme="b" >
+				<h3>Ocorrências Pesagem <span id='numocorrencias' class="ui-li-count"></span></h3>
+				<div id="mostraocorrencias" class="card-body">
+				</div>
+			</div>
+			<div data-role="collapsible" data-theme="a" data-content-theme="a">
+				<h3>Inconsistência de Lotes <span id='numinconsistencias' class="ui-li-count"></span></h3>
+				<div id="lotesinconsistentes" class="card-body">
+				</div>
+			</div>
+			<div data-role="collapsible" data-theme="b" data-content-theme="b">
+				<h3>Hospitais com saídas atrasadas <span id='numhospitais' class="ui-li-count"></span></h3>
+				<div id="hospitaisatrasados" class="card-body">
+				</div>
+			</div>
+			<div data-role="collapsible" data-theme="e" data-content-theme="d">
+				<h3>Outras informações <i class="fas fa-angle-down rotate-icon"></i></h3>
+				<div data-role="collapsible-set" data-theme="c" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-iconpos="right">
+					<div data-role="collapsible" >
+						<h3>Materiais para Análise (quarentena)</h3>
+					</div>
+					<div data-role="collapsible" >
+						<h3>Trocas de Lotes realizadas no dia</h3>
+					</div>
+					<div data-role="collapsible" >
+						<h3>Qtde de Eletrolitos utilizados no dia</h3>
+						<div id="mostraeletrolitos">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id='comandos_farma' class='bot_controle_home'></div>
+    </body>
+</html>
+<script>
+function sair(){
+	localStorage.login = false;
+	window.location.href = "login.html";
+}
+
+function eletrolitos(){
+	var url="http://ceqweb1.ceqnep.com.br/producao/farmaapp/ajax/buscaEletrolitos.php";
+	// url = "ajax/buscaEletrolitos.php";
+	jQuery.ajax({
+		type: 'post',
+		async: true,
+		url:url,
+		dataType: 'html',
+		success: function(retorno){
+			jQuery("#mostraeletrolitos").html(retorno);
+		}
+	});
+}
+
+function ocorrencias(){
+	var url="http://ceqweb1.ceqnep.com.br/producao/farmaapp/ajax/buscaOcorrencias.php";
+	// url = "ajax/buscaOcorrencias.php";
+	jQuery.ajax({
+		type: 'post',
+		async: true,
+		url:url,
+		dataType: 'html',
+		success: function(retorno){
+			jQuery("#mostraocorrencias").html(retorno);
+		}
+	});
+}
+
+function inconcistencias(){
+	var url="http://ceqweb1.ceqnep.com.br/producao/farmaapp/ajax/buscaInconsistencialote.php";
+	//url = "ajax/buscaInconsistencialote.php";
+	jQuery.ajax({
+		type: 'post',
+		async: true,
+		url:url,
+		dataType: 'html',
+		success: function(retorno){
+			jQuery("#lotesinconsistentes").html(retorno);
+		}
+	});
+}
+
+function hospitais_atrasados(){
+	var url="http://ceqweb1.ceqnep.com.br/producao/farmaapp/ajax/buscaHospitaisAtrasados.php";
+	// url = "ajax/buscaHospitaisAtrasados.php";
+	jQuery.ajax({
+		type: 'post',
+		async: true,
+		url:url,
+		dataType: 'html',
+		success: function(retorno){
+			jQuery("#hospitaisatrasados").html(retorno); 
+		}
+	});
+}
+hospitais_atrasados();
+inconcistencias();
+ocorrencias();
+eletrolitos();
+
+</script>

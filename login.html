@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+	<link rel="stylesheet" type="text/css" href="css/fontes_ceqnep.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css">
+	<link rel="stylesheet" type="text/css" href="css/ionic.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/ionicons.min.css" />
+    <title>Login</title> 
+        <script type="text/javascript">
+			var url = window.location.pathname;var filename = url.substring(url.lastIndexOf('/')+1);
+			if(localStorage.login=="true" && filename == 'login.html'){window.location.href = "index.html";}
+			else if(localStorage.login=="false" && filename != 'login.html'){window.location.href = "login.html";}
+		</script>
+</head>
+<body>
+    <div class="bar bar-header">
+        <h1 class="title">FarmaWeb</h1>
+    </div>
+    <div class="padding" style="margin-top:55px;">
+        <label class="item-input">
+            <span class="input-label">Farmacêutico</span>
+		</label>
+		<div>
+            <select name='sellogin' id='sellogin' style='font-size: 1.4em !important'>
+				<option value='' hidden>Escolha o Farmacêutico</option>
+			</select>
+        </div>
+        <label class="item-input">
+            <span class="input-label">Senha</span>
+		</label>
+		<div>
+			<input type="password" name="senha" id="senha" style='text-transform:lowercase; font-size: 1.4em !important'/>
+			<div id="capslockstate" style="display:none; color: red;">Teclado MAIÚSCULO</div>
+		</div>
+        <label class="item-input">
+            <button class="button button-block button-positive" id="login">Entrar</button>
+        </label>
+    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/jquery-2.1.3.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>
+	<script type="text/javascript" src="js/auth.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+$(document).ready(function(){ 
+	var url="http://ceqweb1.ceqnep.com.br/producao/farmaapp/ajax/buscaFarma.php";
+	$.getJSON(url,function(result){
+		$.each(result, function(i, field){
+			var nome=field.pess_nome;
+			var login=field.usua_login;
+			$("#sellogin").append(new Option(nome, login));
+		});
+	});
+});
+</script>
