@@ -56,10 +56,10 @@ function carregafarma(){
 		url:url,
 		dataType: 'json',
 		success: function(retorno){
+			alert("Retornou: "+retorno.length+" registros");
 			for(x = 0; x < retorno.length; x++){
 				var nome=retorno[x].pess_nome;
 				var login=retorno[x].usua_login;
-				alert(nome);
 				jQuery("#sellogin").append(new Option(nome, login));
 			}
 		},
